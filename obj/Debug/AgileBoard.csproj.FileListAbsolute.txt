@@ -19,3 +19,11 @@ D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\MahApps.Metro.xml
 D:\MyWork\Projects\AgileBoard\AgileBoard\obj\Debug\App.baml
 D:\MyWork\Projects\AgileBoard\AgileBoard\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\MyWork\Projects\AgileBoard\AgileBoard\obj\Debug\AgileBoard_MarkupCompile.lref
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\EntityFramework.dll
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\EntityFramework.SqlServer.dll
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\System.Data.SQLite.dll
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\System.Data.SQLite.EF6.dll
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\System.Data.SQLite.Linq.dll
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\EntityFramework.xml
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\EntityFramework.SqlServer.xml
+D:\MyWork\Projects\AgileBoard\AgileBoard\bin\Debug\System.Data.SQLite.xml

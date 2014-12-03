@@ -61,7 +61,7 @@
             
           </Grid>
           
-          <ListView Background="#FF252526" ItemsSource="{StaticResource TestData}" MinWidth="400">
+          <ListView Background="#FF252526" ItemsSource="{Binding Tasks}" MinWidth="400">
              <ListView.ItemTemplate>
                <DataTemplate>
                 <Grid Height="200">
@@ -71,7 +71,7 @@
                     <ColumnDefinition/>
                   </Grid.ColumnDefinitions>
                   <Grid.RenderTransform>
-                    <RotateTransform Angle="-0.5"></RotateTransform>
+                    <RotateTransform Angle="0"></RotateTransform>
                   </Grid.RenderTransform>
 
                   <Border Margin="5" BorderBrush="LightSlateGray" BorderThickness="1" Grid.Column="0" >
@@ -95,11 +95,17 @@
                       <!--Рабочая область -->
                       <StackPanel DockPanel.Dock="Top" Margin="3">
                         <Image Source="{StaticResource Pushpin}" Width="40" Height="40"/>
-                        <TextBlock FontSize="14" Text="Дата"></TextBlock>
-                        <TextBlock FontSize="14" Text="Срок"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Width="40" FontSize="14" Text="Дата" VerticalAlignment="Center"/>
+                          <DatePicker DisplayDate="{Binding Started}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Width="40" FontSize="14" Text="Срок"></TextBlock>
+                          <DatePicker DisplayDate="{Binding Deadline}"/>
+                        </StackPanel>
                         <TextBlock FontSize="14" Text="Содержание работы"/>
                         <DockPanel Height="85" LastChildFill="True">
-                          <TextBox ></TextBox>
+                          <TextBox Text="{Binding Description}" />
                         </DockPanel>
                       </StackPanel>
                       
