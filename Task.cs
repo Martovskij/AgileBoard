@@ -25,5 +25,11 @@ namespace AgileBoard
       get { return "test"; }
       set { }
     }
+
+    public TaskState State
+    {
+      get { return TaskState.InProcess; }
+      set { }
+    }
   }
 }

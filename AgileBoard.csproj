@@ -78,7 +78,9 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Persistance.cs" />
+    <Compile Include="StateConverter.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="TaskState.cs" />
     <Compile Include="TemplateData.cs" />
     <Compile Include="TestData.cs" />
     <Page Include="MainWindow.xaml">

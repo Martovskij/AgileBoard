@@ -1,122 +1,188 @@
 ﻿<Controls:MetroWindow x:Class="AgileBoard.MainWindow"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:AgileBoard"
-        Title="MainWindow" Height="350" Width="800" MinHeight="350" MinWidth="800"
-                      MaxHeight="768" MaxWidth="1024">
-  
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:AgileBoard"
+                      Title="MainWindow"
+                      Width="800"
+                      Height="350"
+                      MinWidth="800"
+                      MinHeight="350"
+                      MaxWidth="1024"
+                      MaxHeight="768">
+
   <Controls:MetroWindow.Resources>
-    <local:TemplateData x:Key="TestData"/>
-    <BitmapImage x:Key="Pushpin" UriSource="Resources/button.jpg"></BitmapImage>
+    <local:TemplateData x:Key="TestData" />
+    <BitmapImage x:Key="Pushpin" UriSource="Resources/button.jpg" />
+    <local:StateConverter x:Key="StateConverter" />
   </Controls:MetroWindow.Resources>
-  
-  <Border BorderBrush="DimGray" BorderThickness="2,0,2,2" >
+
+  <Border BorderBrush="DimGray" BorderThickness="2,0,2,2">
     <DockPanel>
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="200"/>
-          <ColumnDefinition Width="5*"/>
+          <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
-      
-        <!-- Панель настроек заданий -->
-       
-          <Border Grid.Column="0"
-                  Background="#FF2D2D30"
-                  BorderBrush="SlateGray"
-                  BorderThickness="0,0,1,0">
-            <DockPanel>
-            
-            </DockPanel>
-          </Border>
-      
 
-        <!-- Панель задач -->
+        <!--  Панель настроек заданий  -->
+
+        <Border Grid.Column="0"
+                Background="#FF2D2D30"
+                BorderBrush="SlateGray"
+                BorderThickness="0,0,1,0">
+          <StackPanel>
+            <Button Width="70"
+                    Height="30"
+                    Margin="5"
+                    Command="{Binding CreateNewTaskCommand}"
+                    Content="Добавить" />
+            <Button Width="70"
+                    Height="30"
+                    Margin="5"
+                    Command="{Binding DeleteTaskCommand}"
+                    CommandParameter="{Binding ElementName=TaskList,
+                                               Path=SelectedItem}"
+                    Content="Удалить" />
+            <StackPanel />
+          </StackPanel>
+        </Border>
+
+        <!--  Панель задач  -->
         <DockPanel Grid.Column="1" LastChildFill="True">
-          
-          <Grid Background="#FF3E3E42" DockPanel.Dock="Top" Height="35" Margin="0,0,0,0">
+          <Grid Height="35"
+                Margin="0,0,0,0"
+                Background="#FF3E3E42"
+                DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
-              <ColumnDefinition/>
-              <ColumnDefinition/>
-              <ColumnDefinition/>
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
-            <Label Background="#FFEBFF8F" Margin="3" Grid.Column="0" HorizontalContentAlignment="Center">
+
+            <Label Grid.Column="0"
+                   Margin="3"
+                   HorizontalContentAlignment="Center"
+                   Background="#FFEBFF8F">
               <Label.Content>
-                <TextBlock Text="Нужно сделать" FontSize="16"/>
+                <TextBlock FontSize="16" Text="Нужно сделать" />
               </Label.Content>
+              <Label.ContextMenu>
+                <ContextMenu>
+                  <MenuItem Command="{Binding CreateNewTaskCommand}" Header="Создать" />
+                </ContextMenu>
+              </Label.ContextMenu>
             </Label>
-            
-            <Label Margin="3" Grid.Column="1" HorizontalContentAlignment="Center" Background="#FFFF7373">
+
+            <Label Grid.Column="1"
+                   Margin="3"
+                   HorizontalContentAlignment="Center"
+                   Background="#FFFF7373">
               <Label.Content>
-                <TextBlock Text="В работе" FontSize="16"/>
+                <TextBlock FontSize="16" Text="В работе" />
               </Label.Content>
             </Label>
 
-            <Label Margin="3" Grid.Column="2" HorizontalContentAlignment="Center" Background="#FFBFFF7E">
+            <Label Grid.Column="2"
+                   Margin="3"
+                   HorizontalContentAlignment="Center"
+                   Background="#FFBFFF7E">
               <Label.Content>
-                <TextBlock Text="Сделано" FontSize="16"/>
+                <TextBlock FontSize="16" Text="Сделано" />
               </Label.Content>
             </Label>
-            
+
           </Grid>
-          
-          <ListView Background="#FF252526" ItemsSource="{Binding Tasks}" MinWidth="400">
-             <ListView.ItemTemplate>
-               <DataTemplate>
-                <Grid Height="200">
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                  </Grid.ColumnDefinitions>
-                  <Grid.RenderTransform>
-                    <RotateTransform Angle="0"></RotateTransform>
-                  </Grid.RenderTransform>
+          <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="TaskList"
+                      MinWidth="400"
+                      Background="#FF252526"
+                      ItemsSource="{Binding Tasks}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Grid Height="200">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition />
+                      <ColumnDefinition />
+                      <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RenderTransform>
+                      <RotateTransform Angle="0" />
+                    </Grid.RenderTransform>
 
-                  <Border Margin="5" BorderBrush="LightSlateGray" BorderThickness="1" Grid.Column="0" >
-                    <DockPanel LastChildFill="True" Background="#FFFAFFCC">
-                      <Button DockPanel.Dock="Left"  Width="20" Height="20" HorizontalAlignment="Left">
-                        <Button.Template>
-                          <ControlTemplate>
-                            <Path Stroke="Black">
-                              <Path.Data>
-                                <Geometry>
-                                  M 1,10 L 15,10 L0,5
-                                </Geometry>
-                              </Path.Data>
-                            </Path>
-                          </ControlTemplate>
-                        </Button.Template>
-                      </Button>
-                      <Button  DockPanel.Dock="Right" Width="20" Height="20" HorizontalAlignment="Right"/>
-                      
-                      
-                      <!--Рабочая область -->
-                      <StackPanel DockPanel.Dock="Top" Margin="3">
-                        <Image Source="{StaticResource Pushpin}" Width="40" Height="40"/>
-                        <StackPanel Orientation="Horizontal">
-                          <TextBlock Width="40" FontSize="14" Text="Дата" VerticalAlignment="Center"/>
-                          <DatePicker DisplayDate="{Binding Started}"/>
+                    <Border Grid.Column="{Binding Path=State,
+                                                  Converter={StaticResource StateConverter}}"
+                            Margin="5"
+                            BorderBrush="LightSlateGray"
+                            BorderThickness="1">
+
+                      <DockPanel Background="#FFFAFFCC" LastChildFill="True">
+
+
+                        <Button Width="20"
+                                Height="20"
+                                HorizontalAlignment="Left"
+                                Command="{Binding MoveUpTaskStatusCommand}"
+                                CommandParameter="{Binding ElementName=TaskList,
+                                                           Path=SelectedItem}"
+                                DockPanel.Dock="Left">
+                          <Button.Template>
+                            <ControlTemplate>
+                              <Path Stroke="Black">
+                                <Path.Data>
+                                  <Geometry>M 1,10 L 15,10 L0,5</Geometry>
+                                </Path.Data>
+                              </Path>
+                            </ControlTemplate>
+                          </Button.Template>
+                        </Button>
+                        <Button Width="20"
+                                Height="20"
+                                HorizontalAlignment="Right"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                CommandParameter="{Binding ElementName=TaskList,
+                                                           Path=SelectedItem}"
+                                DockPanel.Dock="Right" />
+
+
+                        <!--  Рабочая область  -->
+                        <StackPanel Margin="3" DockPanel.Dock="Top">
+                          <Image Width="40"
+                                 Height="40"
+                                 Source="{StaticResource Pushpin}" />
+                          <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="40"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Text="Дата" />
+                            <DatePicker SelectedDate="{Binding Started}" />
+                          </StackPanel>
+                          <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="40"
+                                       FontSize="14"
+                                       Text="Срок" />
+                            <DatePicker SelectedDate="{Binding Deadline}" />
+                          </StackPanel>
+                          <TextBlock FontSize="14" Text="Содержание работы" />
+                          <DockPanel Height="85" LastChildFill="True">
+                            <TextBox Text="{Binding Description}" />
+                          </DockPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                          <TextBlock Width="40" FontSize="14" Text="Срок"></TextBlock>
-                          <DatePicker DisplayDate="{Binding Deadline}"/>
-                        </StackPanel>
-                        <TextBlock FontSize="14" Text="Содержание работы"/>
-                        <DockPanel Height="85" LastChildFill="True">
-                          <TextBox Text="{Binding Description}" />
-                        </DockPanel>
-                      </StackPanel>
-                      
-                      
-                      
-                    </DockPanel>
-                  </Border>
-                </Grid>
-              </DataTemplate>
-             </ListView.ItemTemplate>
-          </ListView>
+
+
+
+                      </DockPanel>
+                    </Border>
+
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ListView>
+          </ScrollViewer>
         </DockPanel>
       </Grid>
     </DockPanel>
